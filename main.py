@@ -25,9 +25,22 @@ class DatabaseInfo(BaseModel):
     database: str
     version: str
 
+# Middleware для локализации
+@app.middleware("http")
+async def set_locale(request: Request, call_next):
+    # Получаем язык из заголовка Accept-Language
+    accept_language = request.headers.get("Accept-Language", "ru")
+    # Устанавливаем русский язык по умолчанию
+    if "ru" not in accept_language:
+        accept_language = "ru"
+    request.state.locale = accept_language
+    print(f"Locale set to: {request.state.locale}")  # Debug statement
+    response = await call_next(request)
+    return response
+
 # Маршрут для получения информации о сервере
 @app.get("/info/server", response_model=ServerInfo)
-def get_server_info():
+def get_server_info(request: Request):
     # Получаем текущее время в часовом поясе Екатеринбурга
     current_time = datetime.now(yekaterinburg_tz).strftime('%Y-%m-%d %H:%M:%S')
     return ServerInfo(
@@ -59,5 +72,12 @@ def get_database_info():
 
 # Корневой маршрут
 @app.get("/")
-def read_root():
-    return {"message": "Добро пожаловать в Лабораторную работу №1!"}
+def read_root(request: Request):
+    locale = request.state.locale
+    # Hardcode locale to 'ru' for testing
+    locale = "ru"
+    if locale == "ru":
+        return {"message": "Добро пожаловать в Лабораторную работу №1!"}
+    else:
+        return {"message": "Welcome to Laboratory Work №1!"}
+

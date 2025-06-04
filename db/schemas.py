@@ -1,3 +1,4 @@
+from datetime import datetime
 from sqlalchemy import Column, Date, DateTime, Integer, String, Boolean, ForeignKey, func
 from db.database import Base
 from sqlalchemy.orm import relationship
@@ -107,3 +108,17 @@ class RolesAndPermissions(Base):
     # Связь с ролями и разрешениями
     role = relationship("Role", back_populates="permissions")
     permission = relationship("Permission", back_populates="roles")
+    
+# Таблица логов
+class ChangeLogs(Base):
+    __tablename__ = "change_logs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    entity_name = Column(String, nullable=False)  # Имя сущности, которая мутировала
+    entity_id = Column(Integer, nullable=False)    # Ссылка на запись сущности
+    action = Column(String, nullable=False)        # Операция (создание, изменение, удаление)
+    old_value = Column(String, nullable=True)        # Значение до изменения (в случае изменения)
+    new_value = Column(String, nullable=True)        # Значение после изменения (для создания и изменений)
+    changed_at = Column(DateTime, default=datetime.now())  # Дата и время изменения
+    changed_by = Column(Integer, ForeignKey('users.id'))  # Кто изменил (ForeignKey на пользователя)
+    user = relationship("User")  # Связь с пользователем

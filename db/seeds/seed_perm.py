@@ -11,6 +11,7 @@ permissions_seed = [
     {"name": "Update User", "code": "update-user", "description": "Обновить данные пользователя"},
     {"name": "Delete User", "code": "delete-user", "description": "Удалить пользователя"},
     {"name": "Restore user", "code": "restore-user", "description": "Восстановить пользователя"},
+    {"name": "Get Story User", "code": "get-story-user", "description": "Получить историю пользователя"},
 
     # Разрешения для Role
     {"name": "Get List Role", "code": "get-list-role", "description": "Получить список ролей"},
@@ -19,6 +20,8 @@ permissions_seed = [
     {"name": "Update Role", "code": "update-role", "description": "Обновить данные роли"},
     {"name": "Delete Role", "code": "delete-role", "description": "Удалить роль"},
     {"name": "Restore Role", "code": "restore-role", "description": "Восстановить роль"},
+    {"name": "Get Story Role", "code": "get-story-role", "description": "Получить историю роли"},
+    {"name": "Restore Version Role", "code": "restore-version-role", "description": "Восстановить версию роли"},
 
     # Разрешения для Permission
     {"name": "Get List Permission", "code": "get-list-permission", "description": "Получить список разрешений"},
@@ -27,6 +30,8 @@ permissions_seed = [
     {"name": "Update Permission", "code": "update-permission", "description": "Обновить данные разрешения"},
     {"name": "Delete Permission", "code": "delete-permission", "description": "Удалить разрешение"},
     {"name": "Restore Permission", "code": "restore-permission", "description": "Восстановить разрешение"},
+    {"name": "Get Story Permission", "code": "get-story-permission", "description": "Получить историю разрешения"},
+    {"name": "Restore Version Permission", "code": "restore-version-permission", "description": "Восстановить версию разрешения"},
 ]
 
 def seed_permissions(db: Session):

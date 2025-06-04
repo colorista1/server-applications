@@ -1,7 +1,0 @@
-fastapi
-uvicorn
-pydantic
-pytz
-pytest
-httpx
-python-jose
